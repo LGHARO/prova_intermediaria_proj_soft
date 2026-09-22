@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PagamentoApplication.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report"></a> &gt; <a href="index.source.html" class="el_package">br.insper.pagamento</a> &gt; <span class="el_source">PagamentoApplication.java</span></div><h1>PagamentoApplication.java</h1><pre class="source lang-java linenums">package br.insper.pagamento;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+/**
+ * EXERCÍCIO: Implementar o Padrão Observable para Notificações de Pagamento
+ *
+ * OBJETIVO:
+ * Implementar o padrão Observer/Observable para notificar diferentes componentes
+ * quando o status de um pagamento é criado ou quando muda (pendente → processado).
+ *
+ * REQUISITOS:
+ *
+ * 1. CRIAR INTERFACES:
+ *    - PagamentoObserver: interface que define o contrato para observers
+ *      - Método: void atualizar(Pagamento pagamento, String statusAnterior, String statusNovo)
+ *
+ *    - PagamentoObservable: interface que define o contrato para o subject
+ *      - Método: void registrarObservador(PagamentoObserver observer)
+ *      - Método: void notificarObservadores(Pagamento pagamento, String statusAnterior)
+ *
+ * 2. IMPLEMENTAR OBSERVERS (pelo menos 2):
+ *
+ *    a) AuditLoggerObserver:
+ *       - Registra em log todas as mudanças de status
+ *       - Deve imprimir: &quot;AUDITORIA - Pagamento ID: {id} | Status: {anterior} → {novo} | Valor: {valor}&quot;
+ *       - Use @Component do Spring
+ *
+ *    b) EmailNotifierObserver:
+ *       - Simula envio de email quando status muda
+ *       - Deve imprimir: &quot;EMAIL ENVIADO - Pagamento ID: {id} mudou para status: {novo}&quot;
+ *       - Use @Component do Spring
+ *
+ *    c) (OPCIONAL) Crie mais um observer de sua escolha (SMS, Webhook, etc)
+ *
+ * 3. IMPLEMENTAR PAGAMENTOSERVICE COM OBSERVABLE:
+ *    - PagamentoService deve implementar PagamentoObservable
+ *    - No método @PostConstruct, registre todos os observers autowired
+ *    - Nos métodos que mudam status (criar, processar), chame notificarObservadores()
+ *    - Mantenha uma lista thread-safe de observers (use CopyOnWriteArrayList)
+ *
+ * BENEFÍCIOS:
+ * ✓ Desacoplamento: observers não conhecem PagamentoService
+ * ✓ Extensibilidade: adicione novos observers sem modificar o serviço
+ * ✓ Responsabilidade única: cada observer tem uma responsabilidade
+ * ✓ Testabilidade: fácil mockar observers para testes
+ *
+ */
+
+@SpringBootApplication
+<span class="nc" id="L52">public class PagamentoApplication {</span>
+
+	public static void main(String[] args) {
+<span class="nc" id="L55">		SpringApplication.run(PagamentoApplication.class, args);</span>
+<span class="nc" id="L56">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

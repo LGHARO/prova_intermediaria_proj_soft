@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValidadorPagamento.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report"></a> &gt; <a href="index.source.html" class="el_package">br.insper.pagamento.validator</a> &gt; <span class="el_source">ValidadorPagamento.java</span></div><h1>ValidadorPagamento.java</h1><pre class="source lang-java linenums">package br.insper.pagamento.validator;
+
+import br.insper.pagamento.dto.PagamentoDto;
+import br.insper.pagamento.entity.TipoPagamento;
+import br.insper.pagamento.exception.ValidacaoPagamentoException;
+import org.springframework.stereotype.Component;
+
+@Component
+<span class="fc" id="L9">public class ValidadorPagamento {</span>
+
+	public void validarCamposObrigatorios(PagamentoDto dto) {
+<span class="pc bpc" id="L12" title="1 of 2 branches missed.">		if (dto.getTipo() == null) {</span>
+<span class="nc" id="L13">			throw new ValidacaoPagamentoException(&quot;Tipo de pagamento é obrigatório&quot;);</span>
+		}
+<span class="pc bpc" id="L15" title="2 of 4 branches missed.">		if (dto.getValor() == null || dto.getValor().signum() &lt;= 0) {</span>
+<span class="nc" id="L16">			throw new ValidacaoPagamentoException(&quot;Valor deve ser maior que zero&quot;);</span>
+		}
+<span class="pc bpc" id="L18" title="1 of 2 branches missed.">		if (dto.getDataCompra() == null) {</span>
+<span class="nc" id="L19">			throw new ValidacaoPagamentoException(&quot;Data de compra é obrigatória&quot;);</span>
+		}
+<span class="fc" id="L21">	}</span>
+
+	public void validarBoleto(PagamentoDto dto) {
+<span class="nc bnc" id="L24" title="All 2 branches missed.">		if (dto.getTipo() != TipoPagamento.BOLETO) {</span>
+<span class="nc" id="L25">			throw new ValidacaoPagamentoException(&quot;Tipo de pagamento deve ser BOLETO&quot;);</span>
+		}
+<span class="nc bnc" id="L27" title="All 4 branches missed.">		if (dto.getParcelas() == null || dto.getParcelas() &lt;= 0) {</span>
+<span class="nc" id="L28">			throw new ValidacaoPagamentoException(&quot;Número de parcelas deve ser maior que zero para pagamentos com BOLETO&quot;);</span>
+		}
+<span class="nc" id="L30">	}</span>
+
+	public void validarCredito(PagamentoDto dto) {
+<span class="nc bnc" id="L33" title="All 2 branches missed.">		if (dto.getTipo() != TipoPagamento.CREDITO) {</span>
+<span class="nc" id="L34">			throw new ValidacaoPagamentoException(&quot;Tipo de pagamento deve ser CREDITO&quot;);</span>
+		}
+<span class="nc bnc" id="L36" title="All 4 branches missed.">		if (dto.getNumeroCartao() == null || dto.getNumeroCartao().isBlank()) {</span>
+<span class="nc" id="L37">			throw new ValidacaoPagamentoException(&quot;Número do cartão é obrigatório para pagamentos com CREDITO&quot;);</span>
+		}
+<span class="nc bnc" id="L39" title="All 4 branches missed.">		if (dto.getDataValidade() == null || dto.getDataValidade().isBlank()) {</span>
+<span class="nc" id="L40">			throw new ValidacaoPagamentoException(&quot;Data de validade é obrigatória para pagamentos com CREDITO&quot;);</span>
+		}
+<span class="nc bnc" id="L42" title="All 4 branches missed.">		if (dto.getCvc() == null || dto.getCvc().isBlank()) {</span>
+<span class="nc" id="L43">			throw new ValidacaoPagamentoException(&quot;CVC é obrigatório para pagamentos com CREDITO&quot;);</span>
+		}
+<span class="nc bnc" id="L45" title="All 4 branches missed.">		if (dto.getParcelas() == null || dto.getParcelas() &lt;= 0) {</span>
+<span class="nc" id="L46">			throw new ValidacaoPagamentoException(&quot;Número de parcelas deve ser maior que zero para pagamentos com CREDITO&quot;);</span>
+		}
+<span class="nc" id="L48">	}</span>
+
+
+
+	public void validarPix(PagamentoDto dto) {
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">		if (dto.getTipo() != TipoPagamento.PIX) {</span>
+<span class="nc" id="L54">			throw new ValidacaoPagamentoException(&quot;Tipo de pagamento deve ser PIX&quot;);</span>
+		}
+<span class="pc bpc" id="L56" title="2 of 4 branches missed.">		if (dto.getChaveOrigem() == null || dto.getChaveOrigem().isBlank()) {</span>
+<span class="nc" id="L57">			throw new ValidacaoPagamentoException(&quot;Chave de origem é obrigatória para pagamentos PIX&quot;);</span>
+		}
+<span class="pc bpc" id="L59" title="2 of 4 branches missed.">		if (dto.getChaveDestino() == null || dto.getChaveDestino().isBlank()) {</span>
+<span class="nc" id="L60">			throw new ValidacaoPagamentoException(&quot;Chave de destino é obrigatória para pagamentos PIX&quot;);</span>
+		}
+<span class="fc" id="L62">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProcessadorBoleto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report"></a> &gt; <a href="index.source.html" class="el_package">br.insper.pagamento.processor</a> &gt; <span class="el_source">ProcessadorBoleto.java</span></div><h1>ProcessadorBoleto.java</h1><pre class="source lang-java linenums">package br.insper.pagamento.processor;
+
+import br.insper.pagamento.entity.Pagamento;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+
+@Service(&quot;BOLETO&quot;)
+<span class="nc" id="L10">public class ProcessadorBoleto implements Processador {</span>
+
+	public boolean processar(Pagamento pagamento) {
+		try {
+<span class="nc" id="L14">			System.out.println(&quot;Processando pagamento com Boleto Bancário...&quot;);</span>
+<span class="nc" id="L15">			System.out.println(&quot;Número de parcelas: &quot; + pagamento.getParcelas());</span>
+<span class="nc" id="L16">			System.out.println(&quot;Valor: &quot; + pagamento.getValor());</span>
+
+			// Simulação de processamento
+<span class="nc" id="L19">			gerarBoletos(pagamento);</span>
+<span class="nc" id="L20">			registrarBoletos(pagamento);</span>
+
+<span class="nc" id="L22">			pagamento.setStatus(&quot;processado&quot;);</span>
+<span class="nc" id="L23">			pagamento.setDataPagamento(LocalDate.now());</span>
+
+<span class="nc" id="L25">			System.out.println(&quot;Boleto(s) gerado(s) com sucesso!&quot;);</span>
+<span class="nc" id="L26">			return true;</span>
+<span class="nc" id="L27">		} catch (Exception e) {</span>
+<span class="nc" id="L28">			pagamento.setStatus(&quot;falha&quot;);</span>
+<span class="nc" id="L29">			System.out.println(&quot;Erro ao processar boleto: &quot; + e.getMessage());</span>
+<span class="nc" id="L30">			return false;</span>
+		}
+	}
+
+	private void gerarBoletos(Pagamento pagamento) {
+<span class="nc" id="L35">		System.out.println(&quot;Gerando &quot; + pagamento.getParcelas() + &quot; boleto(s)...&quot;);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">		for (int i = 1; i &lt;= pagamento.getParcelas(); i++) {</span>
+<span class="nc" id="L37">			String numeroBoleto = gerarNumeroBoleto();</span>
+<span class="nc" id="L38">			LocalDate dataVencimento = calcularDataVencimento(pagamento, i);</span>
+<span class="nc" id="L39">			System.out.println(&quot;Boleto &quot; + i + &quot; - Número: &quot; + numeroBoleto + &quot; - Vencimento: &quot; + dataVencimento);</span>
+		}
+<span class="nc" id="L41">		String codigoBarras = gerarCodigoBarras();</span>
+<span class="nc" id="L42">		pagamento.setCodigoBarras(codigoBarras);</span>
+<span class="nc" id="L43">		System.out.println(&quot;Código de Barras: &quot; + codigoBarras);</span>
+<span class="nc" id="L44">		System.out.println(&quot;Boleto(s) gerado(s)!&quot;);</span>
+<span class="nc" id="L45">	}</span>
+
+	private void registrarBoletos(Pagamento pagamento) {
+<span class="nc" id="L48">		System.out.println(&quot;Registrando boleto(s) no banco...&quot;);</span>
+		// Lógica de registro
+<span class="nc" id="L50">		System.out.println(&quot;Boleto(s) registrado(s)!&quot;);</span>
+<span class="nc" id="L51">	}</span>
+
+	private String gerarNumeroBoleto() {
+<span class="nc" id="L54">		long numero = System.currentTimeMillis();</span>
+<span class="nc" id="L55">		return String.format(&quot;%20d&quot;, numero).replace(&quot; &quot;, &quot;0&quot;);</span>
+	}
+
+	private String gerarCodigoBarras() {
+<span class="nc" id="L59">		StringBuilder codigoBarras = new StringBuilder();</span>
+<span class="nc" id="L60">		codigoBarras.append(&quot;12345&quot;);</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">		for (int i = 0; i &lt; 40; i++) {</span>
+<span class="nc" id="L62">			codigoBarras.append((int) (Math.random() * 10));</span>
+		}
+<span class="nc" id="L64">		codigoBarras.append(&quot;12345&quot;);</span>
+<span class="nc" id="L65">		return codigoBarras.toString();</span>
+	}
+
+	private LocalDate calcularDataVencimento(Pagamento pagamento, int parcela) {
+<span class="nc" id="L69">		return pagamento.getDataCompra().plusMonths(parcela);</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

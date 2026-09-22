@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuditLoggerObserver.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report"></a> &gt; <a href="index.source.html" class="el_package">br.insper.pagamento.observer</a> &gt; <span class="el_source">AuditLoggerObserver.java</span></div><h1>AuditLoggerObserver.java</h1><pre class="source lang-java linenums">package br.insper.pagamento.observer;
+
+import br.insper.pagamento.entity.Pagamento;
+import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Component
+<span class="nc" id="L9">public class AuditLoggerObserver implements PagamentoObserver {</span>
+
+<span class="nc" id="L11">    private static final Logger logger = LoggerFactory.getLogger(AuditLoggerObserver.class);</span>
+
+    @Override
+    public void atualizar(Pagamento pagamento, String statusAnterior, String statusNovo) {
+<span class="nc" id="L15">        String mensagem = String.format(</span>
+            &quot;AUDITORIA - Pagamento ID: %d | Status: %s → %s | Valor: %s&quot;,
+<span class="nc" id="L17">            pagamento.getId(),</span>
+            statusAnterior,
+            statusNovo,
+<span class="nc" id="L20">            pagamento.getValor()</span>
+        );
+<span class="nc" id="L22">        logger.info(mensagem);</span>
+<span class="nc" id="L23">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
