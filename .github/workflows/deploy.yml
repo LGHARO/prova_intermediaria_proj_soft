@@ -63,4 +63,5 @@ jobs:
             -e SPRING_DATASOURCE_URL="jdbc:postgresql://postgres-prova:5432/provadb" \
             -e SPRING_DATASOURCE_USERNAME="usuario" \
             -e SPRING_DATASOURCE_PASSWORD="senha" \
+            -e SPRING_JPA_HIBERNATE_DDL_AUTO="update" \
             lgharo/prova_intermediaria_proj_soft-ci:${{ github.sha }}
