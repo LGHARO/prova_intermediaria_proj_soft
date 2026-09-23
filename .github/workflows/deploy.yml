@@ -56,4 +56,11 @@ jobs:
           script: |
             docker stop prova_intermediaria_proj_soft
             docker rm --force prova_intermediaria_proj_soft
-            docker run  -d -p 8080:8080 --name prova_intermediaria_proj_soft --network rede lgharo/prova_intermediaria_proj_soft-ci:${{ github.sha }}
+            docker run -d \
+            -p 8080:8080 \
+            --name prova_intermediaria_proj_soft \
+            --network rede \
+            -e SPRING_DATASOURCE_URL="jdbc:postgresql://postgres-prova:5432/prova_intermediaria" \
+            -e SPRING_DATASOURCE_USERNAME="usuario" \
+            -e SPRING_DATASOURCE_PASSWORD="senha" \
+            lgharo/prova_intermediaria_proj_soft-ci:${{ github.sha }}

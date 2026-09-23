@@ -53,6 +53,10 @@ public class CursoControllerTests {
                 "spring.datasource.password",
                 postgres::getPassword
         );
+        registry.add(
+                "spring.jpa.hibernate.ddl-auto",
+                () -> "create-drop"
+        );
     }
 
     @Autowired
