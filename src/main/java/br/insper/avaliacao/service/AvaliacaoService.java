@@ -38,16 +38,23 @@ public class AvaliacaoService implements AvaliacaoObservable {
 
 	public Avaliacao criar(AvaliacaoDTO dto) {
 		Avaliacao avaliacao = Avaliacao.fromDTO(dto);
-		if (avaliacao.getNota() > 5  || avaliacao.getNota() < 0){
+
+		if (avaliacao.getNota() > 5 || avaliacao.getNota() < 0) {
 			throw new ResponseStatusException(
 					HttpStatus.FORBIDDEN,
 					"a nota deve ser entre 1 a 5"
 			);
-
 		}
-		notificarObservadores(avaliacao.getId(),"CREATE",LocalDateTime.now());
 
-		return avaliacaoRepository.save(avaliacao);
+		Avaliacao savedAvaliacao = avaliacaoRepository.save(avaliacao);
+
+		notificarObservadores(
+				savedAvaliacao.getId(),
+				"CREATE",
+				LocalDateTime.now()
+		);
+
+		return savedAvaliacao;
 	}
 
 	public Avaliacao get(long id){
