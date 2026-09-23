@@ -54,7 +54,7 @@ jobs:
         key: ${{ secrets.KEY_TEST }}
         port: 22
         script: |
-          docker stop pagamento
-          docker rm --force pagamento
-          docker run  -d -p 8080:8080 --name pagamento lgharo/pagamento-ci:${{ github.sha }}
+          docker stop trocarNome
+          docker rm --force trocarNome
+          docker run  -d -p 8080:8080 --name trocarNome lgharo/trocarNome-ci:${{ github.sha }}
         
