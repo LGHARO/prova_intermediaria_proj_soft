@@ -1,10 +1,9 @@
-package br.insper.pagamento;
+package br.insper.curso;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PagamentoApplicationTests {
+class CursoApplicationTests {
 
 //	@Test
 //	void contextLoads() {

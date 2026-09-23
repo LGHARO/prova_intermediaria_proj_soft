@@ -1,6 +1,6 @@
-package br.insper.pagamento.entity;
+package br.insper.curso.entity;
 
-import br.insper.pagamento.dto.CursoDTO;
+import br.insper.curso.dto.CursoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

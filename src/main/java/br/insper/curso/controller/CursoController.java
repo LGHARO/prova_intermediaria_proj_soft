@@ -1,8 +1,8 @@
-package br.insper.pagamento.controller;
+package br.insper.curso.controller;
 
-import br.insper.pagamento.dto.CursoDTO;
-import br.insper.pagamento.entity.Curso;
-import br.insper.pagamento.service.CursoService;
+import br.insper.curso.dto.CursoDTO;
+import br.insper.curso.entity.Curso;
+import br.insper.curso.service.CursoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

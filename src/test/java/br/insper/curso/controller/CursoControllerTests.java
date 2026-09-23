@@ -1,8 +1,8 @@
-package br.insper.pagamento.controller;
+package br.insper.curso.controller;
 
-import br.insper.pagamento.dto.CursoDTO;
-import br.insper.pagamento.entity.Curso;
-import br.insper.pagamento.repository.CursoRepository;
+import br.insper.curso.dto.CursoDTO;
+import br.insper.curso.entity.Curso;
+import br.insper.curso.repository.CursoRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

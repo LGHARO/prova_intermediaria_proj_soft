@@ -1,6 +1,6 @@
-package br.insper.pagamento.repository;
+package br.insper.curso.repository;
 
-import br.insper.pagamento.entity.Curso;
+import br.insper.curso.entity.Curso;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
