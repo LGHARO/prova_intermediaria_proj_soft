@@ -55,21 +55,25 @@ public class AvaliacaoServiceTests {
         dto.setDataAvaliacao(LocalDate.parse("2000-10-10"));
 
         Avaliacao avaliacao = new Avaliacao();
+        avaliacao.setId(1L);
         avaliacao.setAutor("Eduardo Zambom");
         avaliacao.setNota(3);
         avaliacao.setConteudo("java");
         avaliacao.setDataAvaliacao(LocalDate.parse("2000-10-10"));
-        Mockito.when(avaliacaoRepository.save(Mockito.any()))
+
+        Mockito.when(avaliacaoRepository.save(Mockito.any(Avaliacao.class)))
                 .thenReturn(avaliacao);
 
         Avaliacao response = avaliacaoService.criar(dto);
 
-        Assertions.assertEquals("Eduardo Zambom",response.getAutor());
+        Assertions.assertEquals(1L, response.getId());
+        Assertions.assertEquals("Eduardo Zambom", response.getAutor());
         Assertions.assertEquals(3, response.getNota());
         Assertions.assertEquals("java", response.getConteudo());
-        Assertions.assertEquals(LocalDate.parse("2000-10-10"), response.getDataAvaliacao());
-
-
+        Assertions.assertEquals(
+                LocalDate.parse("2000-10-10"),
+                response.getDataAvaliacao()
+        );
 
     }
 
